@@ -6,8 +6,9 @@ function choosePiece()
   end
 end
 function play()
-  --I know that Goto statements are not used and it is prefered that loops are used, I was just experimenting with them to see how they worked
-  ::firstGoto::
+  --::firstGoto::
+  piece=0
+  while((type(piece)~="number") or (piece>9 or piece<1) or (choosenAlready[piece]=="X" or choosenAlready[piece]=="O")) do
   print("Where does player 1 want to go, type the corresponding number.")
   io.write(string.format("_%s_", choosenAlready[1]))
   io.write(string.format("|_%s_|", choosenAlready[2]))
@@ -21,15 +22,17 @@ function play()
   piece=tonumber(io.read())
   if (type(piece)~="number") then
     print("That is not a number!")
-    goto firstGoto
+    piece=0
+    --goto firstGoto
   end
-  if piece>9 or piece<1 then
+  if (piece>9 or piece<1) then
     print("Please enter a number in between 1 to 9!")
-    goto firstGoto
+    --goto firstGoto
   end
   if (choosenAlready[piece]=="X" or choosenAlready[piece]=="O") then
     print("You have to choose a blank square!")
-    goto firstGoto
+    --goto firstGoto
+  end
   end
   if whichPiece=="X" then
     table.remove(choosenAlready, piece)
@@ -71,7 +74,8 @@ function play()
       os.exit()
     end
   end
-  ::secondGoto::  
+  --::secondGoto::
+  while((type(piece)~="number") or (piece>9 or piece<1) or (choosenAlready[piece]=="X" or choosenAlready[piece]=="O")) do
   print("Where does player 2 want to go, type the corresponding number.")
   io.write(string.format("_%s_", choosenAlready[1]))
   io.write(string.format("|_%s_|", choosenAlready[2]))
@@ -85,15 +89,17 @@ function play()
   piece=tonumber(io.read())
   if (type(piece)~="number") then
     print("That is not a number!")
-    goto secondGoto
+    piece=0
+    --goto secondGoto
   end
   if piece>9 or piece<1 then
     print("Please enter a number in between 1 to 9!")
-    goto secondGoto
+    --goto secondGoto
   end
   if (choosenAlready[piece]=="X" or choosenAlready[piece]=="O") then
       print("You have to choose a blank square!")
-    goto secondGoto
+    --goto secondGoto
+  end
   end
   if whichPiece~="X" then
     table.remove(choosenAlready, piece)
@@ -141,7 +147,7 @@ function mainFunc()
   print("_1_|_2_|_3_")
   print("_4_|_5_|_6_")
   print(" 7 | 8 | 9 ")
-  print("One player will be X and the other player will be Y. You will enter a number to place a piece at your desired spot. Refer to the above board for the numbers. Good Luck!")
+  print("One player will be X and the other player will be O. You will enter a number to place a piece at your desired spot. Refer to the above board for the numbers. Good Luck!")
   choosenAlready={"_", "_", "_", "_", "_", "_", " ", " ", " "}
   choosePiece()
   while true do
